@@ -1,6 +1,8 @@
 # dependencies
 /node_modules
 
+**/src/config/database.js
+
 # misc
 .DS_Store
 .env.local
