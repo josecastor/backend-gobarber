@@ -1,4 +1,6 @@
 import { Router } from 'express';
+import multer from 'multer';
+import multerConfig from './config/multer';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -6,6 +8,7 @@ import sessionController from './app/controllers/SessionController';
 import userController from './app/controllers/UserController';
 
 const routers = new Router();
+const upload = multer(multerConfig);
 
 routers.get('/', (req, res) => res.json({ status: 'Api On' }));
 
@@ -15,5 +18,9 @@ routers.post('/users', userController.store);
 routers.use(authMiddleware);
 
 routers.put('/users', userController.update);
+
+routers.post('/files', upload.single('file'), (req, res) => {
+  return res.json({ ok: true });
+});
 
 export default routers;

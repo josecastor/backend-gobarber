@@ -3,6 +3,7 @@
 
 **/src/config/database.js
 **/src/config/auth.js
+**/tmp/uploads/*
 
 # misc
 .DS_Store
