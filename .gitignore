@@ -2,6 +2,7 @@
 /node_modules
 
 **/src/config/database.js
+**/src/config/auth.js
 
 # misc
 .DS_Store
