@@ -24,6 +24,7 @@ routers.put('/users', UserController.update);
 
 routers.get('/providers', ProviderController.index);
 
+routers.get('/appointments', AppointmentController.index);
 routers.post('/appointments', AppointmentController.store);
 
 routers.post('/files', upload.single('file'), FileController.store);
