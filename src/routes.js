@@ -4,25 +4,28 @@ import multerConfig from './config/multer';
 
 import authMiddleware from './app/middlewares/auth';
 
-import sessionController from './app/controllers/SessionController';
-import userController from './app/controllers/UserController';
-import providerController from './app/controllers/ProviderController';
-import fileController from './app/controllers/FileController';
+import SessionController from './app/controllers/SessionController';
+import UserController from './app/controllers/UserController';
+import ProviderController from './app/controllers/ProviderController';
+import FileController from './app/controllers/FileController';
+import AppointmentController from './app/controllers/AppointmentController';
 
 const routers = new Router();
 const upload = multer(multerConfig);
 
 routers.get('/', (req, res) => res.json({ status: 'Api On' }));
 
-routers.post('/sessions', sessionController.store);
-routers.post('/users', userController.store);
+routers.post('/sessions', SessionController.store);
+routers.post('/users', UserController.store);
 
 routers.use(authMiddleware);
 
-routers.put('/users', userController.update);
+routers.put('/users', UserController.update);
+
+routers.get('/providers', ProviderController.index);
 
 routers.get('/providers', providerController.index);
 
-routers.post('/files', upload.single('file'), fileController.store);
+routers.post('/files', upload.single('file'), FileController.store);
 
 export default routers;
