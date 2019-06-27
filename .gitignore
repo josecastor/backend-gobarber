@@ -4,6 +4,7 @@
 **/src/config/database.js
 **/src/config/auth.js
 **/src/config/mail.js
+**/src/config/redis.js
 **/tmp/uploads/*
 
 # misc
