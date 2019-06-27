@@ -14,7 +14,7 @@ class Mail {
   }
 
   sendMail(message) {
-    return this.sendMail({
+    return this.transporter.sendMail({
       ...mailConfig.default,
       ...message,
     });
