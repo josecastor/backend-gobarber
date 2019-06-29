@@ -67,8 +67,6 @@ class AppointmentController {
      * Check for past dates
      */
     // const hourStart = startOfHour(parseISO(date));
-    // hourStart => Sat Jun 29 2019 12:00:00 GMT-0300 (GMT-03:00)
-    // hourStart new => Sat Jun 29 2019 12:30:00 GMT-0300 (GMT-03:00)
     const hourStart = parseISO(date);
     if (isBefore(hourStart, new Date())) {
       return res.status(400).json({ error: 'Past dates are not permitted' });
@@ -85,7 +83,6 @@ class AppointmentController {
     /**
      * Check date availability
      */
-    // console.log(hourStart);
     const checkeAvailability = await Appointment.findOne({
       where: {
         provider_id,
