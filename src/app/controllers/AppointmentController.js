@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { startOfHour, parseISO, isBefore, format, subHours } from 'date-fns';
+import { parseISO, isBefore, format, subHours, getMinutes } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
 import User from '../models/User';
@@ -66,9 +66,20 @@ class AppointmentController {
     /**
      * Check for past dates
      */
-    const hourStart = startOfHour(parseISO(date));
+    // const hourStart = startOfHour(parseISO(date));
+    // hourStart => Sat Jun 29 2019 12:00:00 GMT-0300 (GMT-03:00)
+    // hourStart new => Sat Jun 29 2019 12:30:00 GMT-0300 (GMT-03:00)
+    const hourStart = parseISO(date);
     if (isBefore(hourStart, new Date())) {
       return res.status(400).json({ error: 'Past dates are not permitted' });
+    }
+
+    /**
+     * Check for minute is 30
+     */
+    const halfAnHour = getMinutes(hourStart);
+    if (halfAnHour !== 30) {
+      return res.status(400).json({ error: 'Minutes are not permitted' });
     }
 
     /**
@@ -82,6 +93,7 @@ class AppointmentController {
         date: hourStart,
       },
     });
+
     if (checkeAvailability) {
       return res
         .status(400)
@@ -94,7 +106,7 @@ class AppointmentController {
     const appointment = await Appointment.create({
       user_id: req.userId,
       provider_id,
-      date,
+      date: hourStart,
     });
 
     /**
