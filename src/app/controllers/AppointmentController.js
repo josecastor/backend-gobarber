@@ -76,7 +76,7 @@ class AppointmentController {
      * Check for minute is 30
      */
     const halfAnHour = getMinutes(hourStart);
-    if (halfAnHour !== 30) {
+    if (halfAnHour !== 0 && halfAnHour !== 30) {
       return res.status(400).json({ error: 'Minutes are not permitted' });
     }
 
